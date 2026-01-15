@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailpit
+  namespace: dndevops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailpit
+  template:
+    metadata:
+      labels:
+        app: mailpit
+    spec:
+      containers:
+        - name: mailpit
+          image: axllent/mailpit:latest
+          ports:
+            - containerPort: 1025  # SMTP Port
+            #- containerPort: 8025  # HTTP Web UI Port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: smtp-service
+  namespace: dndevops
+spec:
+  selector:
+    app: mailpit
+  ports:
+    - protocol: TCP
+      port: 25
+      targetPort: 1025
+      name: "smtp"

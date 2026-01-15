@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dndevops-game
+  namespace: dndevops
+  labels:
+    app: dndevops-game
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dndevops-game
+  template:
+    metadata:
+      labels:
+        app: dndevops-game
+    spec:
+      containers:
+        - name: dndevops-game
+          image: ghcr.io/roguebit2002/dndevops:0.0.1-dev
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DNDEVOPS_DEPLOYMENT
+              value: game
+            - name: DNDEVOPS_ADMINS
+              value: admin@dndevops.dev
+            - name: DNDEVOPS_JWT_SECRET
+              value: Youshouldprobablynotdothis
+            - name: DNDEVOPS_SMTP_URI
+              value: smtp://user:password@smtp-service
+            - name: DNDEVOPS_SMTP_SENDER
+              value: dndevops@company.com
+            - name: DNDEVOPS_AMQP_URI
+              value: amqp://user:password@amqp-service
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pg-login
+                  key: USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: pg-login
+                  key: PASSWORD
+            - name: DNDEVOPS_GAME_POSTGRES_URI
+              value: postgres://$(DB_USER):$(DB_PASS)@dndevops-demo-db.postgres.database.azure.com/dndevops-game
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dndevops-game-service
+  namespace: dndevops
+spec:
+  selector:
+    app: dndevops-game
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: "http"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dndevops-game-ingress
+  namespace: dndevops
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/game
+            pathType: Prefix
+            backend:
+              service:
+                name: dndevops-game-service
+                port:
+                  number: 8000

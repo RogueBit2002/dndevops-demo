@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  PASSWORD: ENC[AES256_GCM,data:PzbWSgFvMRKcb1Ix,iv:CXbxQA0RBJC+qMAXeAJp9mjvfcF1/pbxgekhprgA26o=,tag:XHvOBGpWQfiWR11cziS9NQ==,type:str]
+  USER: ENC[AES256_GCM,data:0iy+ouq8UWtbm3Hw1cMmLjo3SU/ORCOw,iv:8Sd8xZJ+eOlGxaqx9XzlV6JVBSKNvEY+EBV+I/hAy1U=,tag:JQGsdqj4mAizmqaa83JFAw==,type:str]
+kind: Secret
+metadata:
+  name: pg-login
+  namespace: dndevops
+sops:
+  age:
+    - recipient: age19vsak44nzqfuevtnwn5e0ll4krc96ysrxf9emt984gr46dpn89ss9zy0sy
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNOEJ2R2MxNGJ1VGJxcUVN
+        WUpLeW5LNjRjNFRjRWMxU2lWUGJBMVBYMUQwCnh3SlUzUmFFRDZjVTEwN0NqWStk
+        Z3o1NnJFREFBL3EvMk5LYkJzVFN2ME0KLS0tIGZXUDFhcTFFeU9FRkp6Z04zTFNI
+        K1A2TllvVkVOUWFHTG5OT0U3RUxJakEK0RpVGvN/Bx3zhbbig4ejDj1vBKdqrTCr
+        5scgY/dJXU33OD9PvfTFYqz2iREOzOeKqte5myZ3euUM/P3gRpmHmQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-01-06T19:00:38Z"
+  mac: ENC[AES256_GCM,data:nDjNUzVxhWkVnzR6qkKVR4pqffX17u5GCbTT0KoT3yN+MWHnzpptj1C1RDqijTrqvrrUdkCD53gVtPVQBUUlSGSO+ibq3PxEvW1V+2yHtHegZ1iCyZGItwTgWKI5qesA1xugXMMFx3dy85zl78HQjbRhg2s+R5vhexeGbRmE50c=,iv:TnYQ63B24ETQFCtn5FZWq/qdBqeYeb8+onJ0LJovr6w=,tag:tRaSbOPjwP4YPv2LmD1/pg==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  version: 3.11.0

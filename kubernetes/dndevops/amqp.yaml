@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: dndevops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:4.2.1-management
+        env:
+          - name: RABBITMQ_DEFAULT_USER
+            value: "user"
+          - name: RABBITMQ_DEFAULT_PASS
+            value: "password"
+        ports:
+        - containerPort: 5672
+          name: "amqp"
+        - containerPort: 5671
+          name: "amqp-tls"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amqp-service
+  namespace: dndevops
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
+      name: "amqp"
+    - protocol: TCP
+      port: 5671
+      targetPort: 5671
+      name: "amqp-tls"

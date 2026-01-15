@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dndevops-events
+  namespace: dndevops
+  labels:
+    app: dndevops-events
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dndevops-events
+  template:
+    metadata:
+      labels:
+        app: dndevops-events
+    spec:
+      containers:
+        - name: dndevops-events
+          image: ghcr.io/roguebit2002/dndevops:0.0.1-dev
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DNDEVOPS_DEPLOYMENT
+              value: events
+            - name: DNDEVOPS_ADMINS
+              value: admin@dndevops.dev
+            - name: DNDEVOPS_JWT_SECRET
+              value: Youshouldprobablynotdothis
+            - name: DNDEVOPS_SMTP_URI
+              value: smtp://user:password@smtp-service
+            - name: DNDEVOPS_SMTP_SENDER
+              value: dndevops@company.com
+            - name: DNDEVOPS_AMQP_URI
+              value: amqp://user:password@amqp-service
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pg-login
+                  key: USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: pg-login
+                  key: PASSWORD
+            - name: DNDEVOPS_EVENTS_POSTGRES_URI
+              value: postgres://$(DB_USER):$(DB_PASS)@dndevops-demo-db.postgres.database.azure.com/dndevops-events
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dndevops-events-service
+  namespace: dndevops
+spec:
+  selector:
+    app: dndevops-events
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: "http"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dndevops-events-ingress
+  namespace: dndevops
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/events
+            pathType: Prefix
+            backend:
+              service:
+                name: dndevops-events-service
+                port:
+                  number: 8000

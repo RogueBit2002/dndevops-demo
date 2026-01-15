@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dndevops-frontend
+  namespace: dndevops
+  labels:
+    app: dndevops-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dndevops-frontend
+  template:
+    metadata:
+      labels:
+        app: dndevops-frontend
+    spec:
+      containers:
+        - name: dndevops-frontend
+          image: ghcr.io/roguebit2002/dndevops:0.0.1-dev
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DNDEVOPS_DEPLOYMENT
+              value: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dndevops-frontend-service
+  namespace: dndevops
+spec:
+  selector:
+    app: dndevops-frontend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: "http"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dndevops-frontend-ingress
+  namespace: dndevops
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dndevops-frontend-service
+                port:
+                  number: 8000
