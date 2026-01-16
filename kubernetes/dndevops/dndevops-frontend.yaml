@@ -44,8 +44,10 @@ metadata:
   name: dndevops-frontend-ingress
   namespace: dndevops
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: dndevops.laurens.me
+      http:
         paths:
           - path: /
             pathType: Prefix

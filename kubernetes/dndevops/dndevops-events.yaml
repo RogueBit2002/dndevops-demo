@@ -66,8 +66,10 @@ metadata:
   name: dndevops-events-ingress
   namespace: dndevops
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: dndevops.laurens.me
+      http:
         paths:
           - path: /api/events
             pathType: Prefix
