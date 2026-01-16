@@ -68,7 +68,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: dndevops.local
+    - host: dndevops.laurens.me
       http:
         paths:
           - path: /api/identity
