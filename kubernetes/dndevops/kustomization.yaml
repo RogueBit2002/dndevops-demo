@@ -8,4 +8,5 @@ resources:
   - dndevops-frontend.yaml
   - amqp.yaml
   - smtp.yaml
+  - smtp-login.yaml
   - pg-login.yaml
