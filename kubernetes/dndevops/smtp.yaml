@@ -20,7 +20,7 @@ spec:
             - containerPort: 1025  # SMTP Port
             - containerPort: 8025  # HTTP Web UI Port
           env:
-            - name: MP_USER_AUTH
+            - name: MP_UI_AUTH
               valueFrom:
                 secretKeyRef:
                   name: smtp-login
