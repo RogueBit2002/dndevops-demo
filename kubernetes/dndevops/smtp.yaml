@@ -20,7 +20,7 @@ spec:
             - containerPort: 1025  # SMTP Port
             - containerPort: 8025  # HTTP Web UI Port
           env:
-            - name: MK_USER_AUTH
+            - name: MP_USER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: smtp-login
@@ -50,17 +50,19 @@ kind: Ingress
 metadata:
   name: mailpit-ingress
   namespace: dndevops
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
     - host: dndevops.laurens.me
       http:
         paths:
-          - path: /mail
-            pathType: Prefix
+          - path: /mail(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: smtp-service
                 port:
                   number: 8000
-                  
