@@ -18,7 +18,7 @@ spec:
           image: axllent/mailpit:latest
           ports:
             - containerPort: 1025  # SMTP Port
-            - containerPort: 8000  # HTTP Web UI Port
+            - containerPort: 8025  # HTTP Web UI Port
           env:
             - name: MK_USER_AUTH
               valueFrom:
@@ -42,13 +42,13 @@ spec:
       name: "smtp"
     - protocol: TCP
       port: 8000
-      targetPort: 8000
+      targetPort: 8025
       name: "web-ui"
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dndevops-mailpit-ingress
+  name: mailpit-ingress
   namespace: dndevops
 spec:
   ingressClassName: nginx
