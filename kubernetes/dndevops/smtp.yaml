@@ -25,7 +25,8 @@ spec:
                 secretKeyRef:
                   name: smtp-login
                   key: CREDS
-
+            - name: MP_WEBROOT
+              value: /mail
 ---
 apiVersion: v1
 kind: Service
@@ -50,17 +51,14 @@ kind: Ingress
 metadata:
   name: mailpit-ingress
   namespace: dndevops
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
     - host: dndevops.laurens.me
       http:
         paths:
-          - path: /mail(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /mail
+            pathType: Prefix
             backend:
               service:
                 name: smtp-service
