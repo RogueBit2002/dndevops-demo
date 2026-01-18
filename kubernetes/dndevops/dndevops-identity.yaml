@@ -28,7 +28,7 @@ spec:
             - name: DNDEVOPS_JWT_SECRET
               value: Youshouldprobablynotdothis
             - name: DNDEVOPS_SMTP_URI
-              value: smtp://user:password@smtp-service
+              value: smtp://user:password@smtp-service:25
             - name: DNDEVOPS_SMTP_SENDER
               value: dndevops@company.com
             - name: DNDEVOPS_AMQP_URI
