@@ -4,6 +4,7 @@ data:
 kind: Secret
 metadata:
     name: smtp-login
+    namespace: dndevops
 sops:
     age:
         - recipient: age19vsak44nzqfuevtnwn5e0ll4krc96ysrxf9emt984gr46dpn89ss9zy0sy
