@@ -1,0 +1,62 @@
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+
+  rabbitmq:
+    image: rabbitmq:4.2.1-management
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  mailpit:
+    image: axllent/mailpit:latest
+    environment:
+      MP_UI_AUTH: admin:mail
+
+  db:
+    image: postgres:18.1
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - ./init-dbs.sql:/docker-entrypoint-initdb.d/init-dbs.sql
+      - ./persist/postgresql:/var/lib/postgresql
+  
+  app:
+    image: dndevops:latest
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    environment:
+      DNDEVOPS_DEPLOYMENT: all
+      DNDEVOPS_ADMINS: admin@dndevops.dev
+      DNDEVOPS_JWT_SECRET: some-cool-secret
+      DNDEVOPS_SMTP_URI: smtp://user:password@mailpit:1025
+      DNDEVOPS_SMTP_SENDER: dndevops@company.com
+      DNDEVOPS_AMQP_URI: amqp://user:password@rabbitmq
+      DNDEVOPS_IDENTITY_POSTGRES_URI: postgres://user:password@db/identity
+      DNDEVOPS_GAME_POSTGRES_URI: postgres://user:password@db/game
+      DNDEVOPS_EVENTS_POSTGRES_URI: postgres://user:password@db/events
