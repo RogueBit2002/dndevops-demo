@@ -22,13 +22,33 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: monitoring
-  values:
-    adminUser: admin
-    adminPassword: admin
+  valuesFrom:
+    - kind: Secret
+      name: grafana-login
+      valuesKey: USER
+      targetPath: adminUser
 
+    - kind: Secret
+      name: grafana-login
+      valuesKey: PASSWORD
+      targetPath: adminPassword
+  values:
+    grafana.ini:
+      server:
+        root_url: "%(protocol)s://%(domain)s/grafana"
     service:
       type: ClusterIP
-
+      targetPort: 3000
+      port: 80
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - host: dndevops.laurens.me
+          paths:
+            - path: /grafana
+              pathType: Prefix
     datasources:
       datasources.yaml:
         apiVersion: 1

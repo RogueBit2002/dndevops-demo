@@ -33,7 +33,10 @@ spec:
             - name: DNDEVOPS_ADMINS
               value: admin@dndevops.dev
             - name: DNDEVOPS_JWT_SECRET
-              value: Youshouldprobablynotdothis
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: USER
             - name: DNDEVOPS_SMTP_URI
               value: smtp://user:password@smtp-service:25
             - name: DNDEVOPS_SMTP_SENDER

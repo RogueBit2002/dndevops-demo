@@ -1,22 +1,22 @@
 apiVersion: v1
 data:
-    CREDS: ENC[AES256_GCM,data:kt1/WThiIT8AMu18l3miIg==,iv:QaDVU+e28rkkZPj0gfmm2pPveM3B2caw7S/jtOl2fjw=,tag:3YW1in/4fhlZIJO5LZxDNg==,type:str]
+  CREDS: ENC[AES256_GCM,data:kt1/WThiIT8AMu18l3miIg==,iv:QaDVU+e28rkkZPj0gfmm2pPveM3B2caw7S/jtOl2fjw=,tag:3YW1in/4fhlZIJO5LZxDNg==,type:str]
 kind: Secret
 metadata:
-    name: smtp-login
-    namespace: dndevops
+  name: smtp-login
+  namespace: dndevops
 sops:
-    age:
-        - recipient: age19vsak44nzqfuevtnwn5e0ll4krc96ysrxf9emt984gr46dpn89ss9zy0sy
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBzcExtUEI3cWcrcDJnQTVl
-            MjFHNmJOd0kxZENpTm5tSTNFRkM0b09QTXhFCmhyaVVEcHVhdUJ1amVTd1VicVhj
-            YzdpUzR4OHVNbUJxQmFxSy9qdUQ1MEUKLS0tIE5wQkUwNlhHZi9wcXk3NXlNcVR1
-            eDZndnJoZmdMN1R6R1MwMkFqRllJTUkKZbrTfDB7DYdsvk5dMGkranVqZg3cLizz
-            MjF7b7aYt8vAxgzqdR1ReMkq7Tam+5cgd7DaDXHMa4YsElCbIDXPRA==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-01-18T12:38:12Z"
-    mac: ENC[AES256_GCM,data:Cb0OV3QvahBauXb+FvvN1sQc96n0jNY8+IJuDA91Wj4/n8ZU/NHUn1mvf3tUESOy0F8+PzlpO5sUoYb/EpWMikwEE1mQBFpoobsyqevVzQAHMYIDQzglmTeqJxk53zod+wsj5fevdz3LbU11iYVc3TOrHcngH5sH2M2KeazKUCQ=,iv:frMcmrrCoQ8q/ufCzSL7I1jfZ9MdgXK38FuzxvwTI/M=,tag:vrtVIKoRw4cIaKXzpuen3A==,type:str]
-    encrypted_regex: ^(data|stringData)$
-    version: 3.11.0
+  age:
+    - recipient: age19vsak44nzqfuevtnwn5e0ll4krc96ysrxf9emt984gr46dpn89ss9zy0sy
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBzcExtUEI3cWcrcDJnQTVl
+        MjFHNmJOd0kxZENpTm5tSTNFRkM0b09QTXhFCmhyaVVEcHVhdUJ1amVTd1VicVhj
+        YzdpUzR4OHVNbUJxQmFxSy9qdUQ1MEUKLS0tIE5wQkUwNlhHZi9wcXk3NXlNcVR1
+        eDZndnJoZmdMN1R6R1MwMkFqRllJTUkKZbrTfDB7DYdsvk5dMGkranVqZg3cLizz
+        MjF7b7aYt8vAxgzqdR1ReMkq7Tam+5cgd7DaDXHMa4YsElCbIDXPRA==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2026-01-18T12:38:12Z"
+  mac: ENC[AES256_GCM,data:Cb0OV3QvahBauXb+FvvN1sQc96n0jNY8+IJuDA91Wj4/n8ZU/NHUn1mvf3tUESOy0F8+PzlpO5sUoYb/EpWMikwEE1mQBFpoobsyqevVzQAHMYIDQzglmTeqJxk53zod+wsj5fevdz3LbU11iYVc3TOrHcngH5sH2M2KeazKUCQ=,iv:frMcmrrCoQ8q/ufCzSL7I1jfZ9MdgXK38FuzxvwTI/M=,tag:vrtVIKoRw4cIaKXzpuen3A==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  version: 3.11.0

@@ -10,3 +10,4 @@ resources:
   - smtp.yaml
   - smtp-login.yaml
   - pg-login.yaml
+  - jwt-secret.yaml
