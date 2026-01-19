@@ -36,10 +36,6 @@ spec:
     grafana.ini:
       server:
         root_url: "%(protocol)s://%(domain)s/grafana"
-    service:
-      type: ClusterIP
-      targetPort: 3000
-      port: 80
     ingress:
       enabled: true
       annotations:
@@ -49,6 +45,10 @@ spec:
           paths:
             - path: /grafana
               pathType: Prefix
+    service:
+      type: ClusterIP
+      targetPort: 3000
+      port: 80
     datasources:
       datasources.yaml:
         apiVersion: 1
