@@ -1,7 +1,0 @@
-apiVersion: v1
-data:
-  PASSWORD: bW9uaXRvcmluZw==
-  USER: YWRtaW4=
-kind: Secret
-metadata:
-  name: sopstest
