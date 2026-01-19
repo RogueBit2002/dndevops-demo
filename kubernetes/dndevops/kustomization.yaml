@@ -11,3 +11,8 @@ resources:
   - smtp-login.yaml
   - pg-login.yaml
   - jwt-secret.yaml
+  
+images:
+  - name: dndevops
+    newName: ghcr.io/roguebit2002/dndevops
+    newTag: 0.0.3-dev

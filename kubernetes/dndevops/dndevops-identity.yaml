@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dndevops-identity
-          image: ghcr.io/roguebit2002/dndevops:0.0.2-dev
+          image: dndevops
           ports:
             - containerPort: 8000
           resources:
