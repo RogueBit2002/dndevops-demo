@@ -36,7 +36,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
-                  key: USER
+                  key: SECRET
             - name: DNDEVOPS_SMTP_URI
               value: smtp://user:password@smtp-service:25
             - name: DNDEVOPS_SMTP_SENDER
