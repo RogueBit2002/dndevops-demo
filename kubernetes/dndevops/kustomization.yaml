@@ -15,4 +15,4 @@ resources:
 images:
   - name: dndevops
     newName: ghcr.io/roguebit2002/dndevops
-    newTag: 0.0.3-dev
+    newTag: 0.0.4-dev
