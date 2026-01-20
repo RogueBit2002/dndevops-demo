@@ -27,10 +27,11 @@ resource firewallRules 'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules@
   parent: postgres
   name: 'AllowAll'
   properties: {
-    endIpAddress: '0.0.0.0'
-    startIpAddress: '255.255.255.255'
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '255.255.255.255'
   }
 }
+
 
 resource disableSecureTransport 'Microsoft.DBforPostgreSQL/flexibleServers/configurations@2025-08-01' = {
   name: 'require_secure_transport'
