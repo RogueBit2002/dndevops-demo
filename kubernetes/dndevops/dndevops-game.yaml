@@ -20,6 +20,13 @@ spec:
           image: dndevops
           ports:
             - containerPort: 8000
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "200Mi"
+            limit:
+              cpu: "400m"
+              memory: "600Mi"
           env:
             - name: DNDEVOPS_DEPLOYMENT
               value: game
@@ -48,6 +55,27 @@ spec:
                   key: PASSWORD
             - name: DNDEVOPS_GAME_POSTGRES_URI
               value: postgres://$(DB_USER):$(DB_PASS)@dndevops-demo-db.postgres.database.azure.com/dndevops-game
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dndevops-game-hpa
+  namespace: dndevops
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dndevops-game
+    namespace: dndevops
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
 ---
 apiVersion: v1
 kind: Service
